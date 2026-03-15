@@ -1,0 +1,223 @@
+.dashboard-header{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:24px;
+  }
+  
+  .page-title{
+  font-size:26px;
+  font-weight:700;
+  }
+  
+  .small-text{
+  font-size:13px;
+  }
+  
+  .grid-4{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:18px;
+  margin-bottom:24px;
+  }
+  
+  .grid-2{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:20px;
+  }
+  
+  /* STAT CARDS */
+  
+  .stat-card{
+  padding:18px;
+  border-radius:14px;
+  background:var(--card-bg);
+  box-shadow:0 2px 8px rgba(0,0,0,0.05);
+  }
+  
+  .stat-top{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:10px;
+  }
+  
+  .stat-icon{
+  width:32px;
+  height:32px;
+  border-radius:8px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  }
+  
+  .stat-value{
+  font-size:22px;
+  font-weight:700;
+  }
+  
+  .stat-sub{
+  font-size:12px;
+  margin-top:4px;
+  color:var(--text-secondary);
+  }
+  
+  /* CARD */
+  
+  .card{
+  background:var(--card-bg);
+  border-radius:14px;
+  padding:16px;
+  box-shadow:0 2px 10px rgba(0,0,0,0.05);
+  }
+  
+  .card-header{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:12px;
+  }
+  
+  /* MARKET WATCH TITLE BLUE */
+  
+  .card-title{
+  font-weight:600;
+  font-size:14px;
+  color:#2563eb;
+  }
+  
+  /* TABLE */
+  
+  .table-wrap{
+  overflow-x:auto;
+  }
+  
+  table{
+  width:100%;
+  border-collapse:collapse;
+  }
+  
+  th{
+  font-size:12px;
+  text-align:left;
+  padding:10px 6px;
+  color:var(--text-secondary);
+  border-bottom:1px solid #eee;
+  }
+  
+  td{
+  padding:10px 6px;
+  font-size:13px;
+  }
+  
+  .symbol{
+  font-weight:700;
+  color:var(--accent);
+  }
+  
+  .company{
+  font-size:12px;
+  color:var(--text-secondary);
+  }
+  
+  /* REMOVE ROW HOVER */
+  
+  .clickable-row{
+  cursor:pointer;
+  }
+  
+  /* TAGS */
+  
+  .tag{
+  padding:3px 8px;
+  border-radius:6px;
+  font-size:11px;
+  font-weight:600;
+  }
+  
+  .tag-green{
+  background:#e6f9ee;
+  color:#0f9d58;
+  }
+  
+  .tag-red{
+  background:#fdeaea;
+  color:#e53935;
+  }
+  
+  /* EMPTY STATE */
+  
+  .empty-state{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  padding:30px;
+  text-align:center;
+  }
+  
+  /* START TRADING BUTTON BLUE */
+  
+  .btn-primary{
+  background:#2563eb;
+  color:white;
+  border:none;
+  padding:8px 16px;
+  border-radius:6px;
+  cursor:pointer;
+  }
+  
+  /* MARKET BADGE */
+  
+  .market-badge{
+  display:flex;
+  align-items:center;
+  gap:6px;
+  padding:6px 12px;
+  border-radius:8px;
+  font-size:12px;
+  font-weight:600;
+  }
+  
+  .market-badge.open{
+  background:#e6f9ee;
+  color:#0f9d58;
+  }
+  
+  .market-badge.closed{
+  background:#fdeaea;
+  color:#e53935;
+  }
+  
+  .status-dot{
+  width:6px;
+  height:6px;
+  border-radius:50%;
+  }
+  
+  .status-dot.open{
+  background:#0f9d58;
+  }
+  
+  .status-dot.closed{
+  background:#e53935;
+  }
+  
+  .small-btn{
+  padding:6px 12px;
+  font-size:12px;
+  display:flex;
+  align-items:center;
+  gap:4px;
+  }
+  
+  /* PNL */
+  
+  .positive{
+  color:var(--green);
+  }
+  
+  .negative{
+  color:var(--red);
+  }
