@@ -70,4 +70,10 @@ export const adminDeleteStock = (id) => api.delete(`/admin/stocks/delete/${id}`)
 export const adminEnableTrading = (id) => api.post(`/admin/stocks/${id}/enable`)
 export const adminDisableTrading = (id) => api.post(`/admin/stocks/${id}/disable`)
 
+export const depositMoney = (amount) =>
+  api.post("api/wallet/deposit", { amount })
+
+export const withdrawMoney = (amount) =>
+  api.post("api/wallet/withdraw", { amount })
+
 export default api

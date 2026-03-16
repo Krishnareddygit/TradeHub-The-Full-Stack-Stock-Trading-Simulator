@@ -1,3 +1,5 @@
+/* PAGE */
+
 .portfolio-page{
     padding:28px;
     background:#020617;
@@ -6,25 +8,29 @@
     font-family:Inter;
     }
     
+    
+    /* TITLE */
+    
     .portfolio-title{
-    font-size:28px;
+    font-size:26px;
     font-weight:700;
     margin-bottom:24px;
     }
+    
     
     /* SUMMARY */
     
     .summary-grid{
     display:grid;
     grid-template-columns:repeat(3,1fr);
-    gap:16px;
-    margin-bottom:30px;
+    gap:18px;
+    margin-bottom:32px;
     }
     
     .summary-card{
     background:#0f172a;
-    padding:16px;
-    border-radius:12px;
+    padding:18px;
+    border-radius:10px;
     display:flex;
     flex-direction:column;
     gap:6px;
@@ -38,10 +44,14 @@
     gap:6px;
     }
     
-    /* HOLDINGS */
+    .positive{color:#22c55e;}
+    .negative{color:#ef4444;}
+    
+    
+    /* SECTION */
     
     .section{
-    margin-bottom:40px;
+    margin-bottom:36px;
     }
     
     .section h2{
@@ -49,10 +59,58 @@
     color:#60a5fa;
     }
     
+    
+    /* EMPTY HOLDINGS */
+    
+    .empty-holdings{
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    padding:80px 20px;
+    background:#0f172a;
+    border-radius:12px;
+    min-height:300px;
+    }
+    
+    .empty-icon{
+    color:#64748b;
+    margin-bottom:16px;
+    }
+    
+    .empty-holdings h3{
+    font-size:20px;
+    margin-bottom:6px;
+    }
+    
+    .empty-holdings p{
+    font-size:13px;
+    color:#94a3b8;
+    margin-bottom:20px;
+    }
+    
+    .start-trading-btn{
+    background:#3b82f6;
+    border:none;
+    padding:10px 18px;
+    border-radius:8px;
+    color:white;
+    font-weight:600;
+    cursor:pointer;
+    }
+    
+    .start-trading-btn:hover{
+    background:#2563eb;
+    }
+    
+    
+    /* HOLDINGS GRID */
+    
     .holdings-grid{
     display:grid;
     grid-template-columns:repeat(auto-fill,minmax(220px,1fr));
-    gap:16px;
+    gap:18px;
     }
     
     .holding-card{
@@ -64,7 +122,7 @@
     }
     
     .holding-card:hover{
-    transform:translateY(-2px);
+    transform:translateY(-3px);
     background:#1e293b;
     }
     
@@ -76,13 +134,13 @@
     
     .symbol{
     font-weight:700;
-    color:#60a5fa;
+    color:#3b82f6;
     }
     
     .company{
     font-size:12px;
     color:#94a3b8;
-    margin-bottom:10px;
+    margin-bottom:8px;
     }
     
     .holding-info{
@@ -96,6 +154,7 @@
     font-weight:700;
     }
     
+    
     /* TRADE LIST */
     
     .trade-list{
@@ -106,9 +165,9 @@
     
     .trade-row{
     display:grid;
-    grid-template-columns:80px 80px 1fr 160px;
+    grid-template-columns:80px 80px 1fr 180px;
     align-items:center;
-    padding:10px;
+    padding:12px;
     background:#0f172a;
     border-radius:8px;
     }
@@ -139,15 +198,8 @@
     color:#94a3b8;
     }
     
-    /* COLORS */
     
-    .positive{
-    color:#22c55e;
-    }
-    
-    .negative{
-    color:#ef4444;
-    }
+    /* TAG */
     
     .tag{
     padding:3px 8px;
@@ -163,4 +215,142 @@
     .tag.red{
     background:#450a0a;
     color:#ef4444;
+    }
+    
+    
+    /* WALLET */
+    
+    .wallet-box{
+    margin:25px 0;
+    padding:16px;
+    background:#0f172a;
+    border-radius:10px;
+    }
+    
+    .wallet-input{
+    display:flex;
+    gap:10px;
+    margin-top:10px;
+    }
+    
+    .wallet-input input{
+    flex:1;
+    padding:10px;
+    border-radius:6px;
+    border:1px solid #1e293b;
+    background:#020617;
+    color:white;
+    outline:none;
+    }
+    
+    .wallet-input input:focus{
+    border-color:#3b82f6;
+    }
+    
+    .deposit-btn{
+    background:#22c55e;
+    border:none;
+    padding:10px 14px;
+    border-radius:6px;
+    color:white;
+    cursor:pointer;
+    }
+    
+    .deposit-btn:hover{
+    background:#16a34a;
+    }
+    
+    .withdraw-btn{
+    background:#ef4444;
+    border:none;
+    padding:10px 14px;
+    border-radius:6px;
+    color:white;
+    cursor:pointer;
+    }
+    
+    .withdraw-btn:hover{
+    background:#dc2626;
+    }
+
+    /* TRADE LIST */
+
+.trade-list{
+    display:flex;
+    flex-direction:column;
+    gap:12px;
+    }
+    
+    
+    /* TRADE ROW */
+    
+    .trade-row{
+    display:grid;
+    grid-template-columns:110px 140px 1fr 180px;
+    align-items:center;
+    
+    padding:14px 18px;
+    
+    background:#0f172a;
+    border-radius:10px;
+    
+    gap:16px;
+    
+    transition:0.2s;
+    }
+    
+    
+    /* HOVER */
+    
+    .trade-row:hover{
+    background:#1e293b;
+    }
+    
+    
+    /* BUY / SELL BADGE */
+    
+    .trade-type{
+    font-weight:700;
+    padding:6px 12px;
+    border-radius:8px;
+    text-align:center;
+    width:80px;
+    }
+    
+    
+    .trade-type.buy{
+    background:#052e16;
+    color:#22c55e;
+    }
+    
+    
+    .trade-type.sell{
+    background:#450a0a;
+    color:#ef4444;
+    }
+    
+    
+    /* STOCK SYMBOL */
+    
+    .trade-symbol{
+    font-weight:700;
+    color:#e2e8f0;
+    white-space:nowrap;
+    }
+    
+    
+    /* QUANTITY × PRICE */
+    
+    .trade-details{
+    font-size:14px;
+    color:#cbd5f5;
+    }
+    
+    
+    /* TIME */
+    
+    .trade-time{
+    font-size:12px;
+    color:#94a3b8;
+    text-align:right;
     }

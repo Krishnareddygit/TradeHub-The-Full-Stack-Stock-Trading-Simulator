@@ -29,7 +29,7 @@ public class DataSeeder implements CommandLineRunner {
                     .balance(BigDecimal.valueOf(1000000))
                     .build();
             userRepository.save(admin);
-            System.out.println("✅ Admin user created: admin / admin123");
+            System.out.println("Admin user created: admin / admin123");
         }
     }
 }

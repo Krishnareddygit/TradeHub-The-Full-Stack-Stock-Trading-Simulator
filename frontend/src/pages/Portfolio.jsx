@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import { getPortfolio, getPnL, getMyTrades } from "../services/api"
+import { getPortfolio, getPnL, getMyTrades, depositMoney, withdrawMoney } from "../services/api"
 import { useAuth } from "../context/AuthContext"
 import { TrendingUp, TrendingDown, Briefcase } from "lucide-react"
 import { useNavigate } from "react-router-dom"
@@ -12,6 +12,9 @@ const [portfolio,setPortfolio] = useState([])
 const [pnl,setPnl] = useState({})
 const [trades,setTrades] = useState([])
 const [loading,setLoading] = useState(true)
+
+const [amount,setAmount] = useState("")
+const [processing,setProcessing] = useState(false)
 
 const { user,refreshUser } = useAuth()
 const navigate = useNavigate()
@@ -28,12 +31,11 @@ getMyTrades()
 ])
 
 .then(([p,pnlRes,t])=>{
-
 setPortfolio(p.data)
 setPnl(pnlRes.data)
 setTrades(t.data)
-
 })
+
 .finally(()=>setLoading(false))
 
 },[])
@@ -45,6 +47,64 @@ const portfolioValue = portfolio.reduce((sum,p)=>
 sum + Number(p.stock?.price||0) * Number(p.quantity||0),0)
 
 
+/* ===============================
+   WALLET FUNCTIONS
+================================ */
+
+const handleDeposit = async () => {
+
+if(!amount || Number(amount) <= 0) return
+
+setProcessing(true)
+
+try{
+
+await depositMoney(amount)
+
+await refreshUser()
+
+setAmount("")
+
+}catch{
+
+alert("Deposit failed")
+
+}
+
+setProcessing(false)
+
+}
+
+
+const handleWithdraw = async () => {
+
+if(!amount || Number(amount) <= 0) return
+
+setProcessing(true)
+
+try{
+
+await withdrawMoney(amount)
+
+await refreshUser()
+
+setAmount("")
+
+}catch{
+
+alert("Withdraw failed")
+
+}
+
+setProcessing(false)
+
+}
+
+
+/* ===============================
+   LOADING SCREEN
+================================ */
+
 if(loading){
 return(
 <div className="page">
@@ -53,6 +113,10 @@ return(
 )
 }
 
+
+/* ===============================
+   UI
+================================ */
 
 return(
 
@@ -110,6 +174,43 @@ Portfolio
 
 
 
+{/* WALLET */}
+
+<div className="wallet-box">
+
+<h2>Wallet</h2>
+
+<div className="wallet-input">
+
+<input
+type="number"
+placeholder="Enter amount"
+value={amount}
+onChange={(e)=>setAmount(e.target.value)}
+/>
+
+<button
+className="deposit-btn"
+onClick={handleDeposit}
+disabled={processing}
+>
+Add Money
+</button>
+
+<button
+className="withdraw-btn"
+onClick={handleWithdraw}
+disabled={processing}
+>
+Withdraw
+</button>
+
+</div>
+
+</div>
+
+
+
 {/* HOLDINGS */}
 
 <div className="section">
@@ -118,19 +219,21 @@ Portfolio
 
 {portfolio.length===0 ? (
 
-<div className="empty">
+<div className="empty-holdings">
 
-<Briefcase size={40}/>
+<Briefcase size={60} className="empty-icon"/>
 
-<p>No holdings yet</p>
+<h3>No holdings yet</h3>
+
+<p>
+Your purchased stocks will appear here.
+</p>
 
 <button
-className="trade-btn"
+className="start-trading-btn"
 onClick={()=>navigate("/trade")}
 >
-
 Start Trading
-
 </button>
 
 </div>
@@ -152,7 +255,6 @@ Number(p.averagePrice||0)*Number(p.quantity||0)
 const pct = invested>0
 ? ((currentValue-invested)/invested)*100
 : 0
-
 
 return(
 
@@ -189,10 +291,8 @@ onClick={()=>navigate(`/trade/${p.stock?.symbol}`)}
 </div>
 
 <div className={`pnl ${pl>=0?"positive":"negative"}`}>
-
 {pl>=0?"+":""}
 ₹{Number(pl).toFixed(2)}
-
 </div>
 
 </div>
@@ -240,17 +340,13 @@ return(
 </div>
 
 <div className="trade-details">
-
 {t.quantity} × ₹{Number(t.price).toFixed(2)}
-
 </div>
 
 <div className="trade-time">
-
 {t.executedAt
 ? new Date(t.executedAt).toLocaleString("en-IN")
 : "-"}
-
 </div>
 
 </div>
