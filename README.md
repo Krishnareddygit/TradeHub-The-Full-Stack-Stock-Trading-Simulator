@@ -1,4 +1,4 @@
-# TradePro – Real-Time Stock Trading Simulation Platform
+# TradeHub – Real-Time Stock Trading Simulation Platform
 
 TradePro is a **Spring Boot–based stock trading simulation platform** that allows users to place buy and sell orders, view portfolios, and simulate real-time trading with margin leverage.
 The platform implements a **matching engine, order book, margin trading, and portfolio management**, similar to modern brokerage systems.
