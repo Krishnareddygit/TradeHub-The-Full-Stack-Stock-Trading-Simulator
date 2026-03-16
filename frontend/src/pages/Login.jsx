@@ -37,11 +37,15 @@ localStorage.setItem("token",token)
 
 const meRes = await getMe()
 
-loginUser(token,meRes.data)
+loginUser(token, meRes.data)
 
 toast.success(`Welcome back, ${username}!`)
 
-navigate("/dashboard")
+if (meRes.data.role === "ADMIN") {
+  navigate("/admin")
+} else {
+  navigate("/dashboard")
+}
 
 }catch(err){
 

@@ -140,26 +140,28 @@ className={({isActive})=>`nav-item ${isActive?"active":""}`}
 
 <div className="sidebar-footer">
 
-<div className="user-card">
+  <div className="user-card">
 
-<div className="avatar">
-{user?.username?.[0]?.toUpperCase()}
+    <div className="avatar">
+      {user?.username?.[0]?.toUpperCase()}
+    </div>
+
+    <div>
+
+      <div className="username">
+        {user?.username}
+      </div>
+
+      {user?.role !== "ADMIN" && (
+        <div className="balance">
+          ₹{Number(user?.balance || 0).toLocaleString("en-IN", {
+            minimumFractionDigits: 2
+          })}
+        </div>
+      )}
+
+    </div>
 </div>
-
-<div>
-
-<div className="username">
-{user?.username}
-</div>
-
-<div className="balance">
-₹{Number(user?.balance||0).toLocaleString("en-IN",{minimumFractionDigits:2})}
-</div>
-
-</div>
-
-</div>
-
 
 <button
 className="logout-btn"
