@@ -1,168 +1,212 @@
-import { useState } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
-import { useAuth } from '../context/AuthContext'
-import { useToast } from '../context/ToastContext'
-import { register, getMe } from '../services/api'
-import { Zap, Eye, EyeOff } from 'lucide-react'
-import './Auth.css'
+import { useState } from "react"
+import { Link, useNavigate } from "react-router-dom"
+import { useAuth } from "../context/AuthContext"
+import { useToast } from "../context/ToastContext"
+import { register, getMe } from "../services/api"
+import { Zap, Eye, EyeOff } from "lucide-react"
 
-export default function Register() {
+import "./Auth.css"
 
-  const [form, setForm] = useState({
-    username: '',
-    email: '',
-    password: ''
-  })
+export default function Register(){
 
-  const [loading, setLoading] = useState(false)
-  const [showPw, setShowPw] = useState(false)
+const [form,setForm] = useState({
+username:"",
+email:"",
+password:""
+})
 
-  const { loginUser } = useAuth()
-  const toast = useToast()
-  const navigate = useNavigate()
+const [loading,setLoading] = useState(false)
+const [showPw,setShowPw] = useState(false)
 
-  const handleSubmit = async (e) => {
-    e.preventDefault()
+const { loginUser } = useAuth()
+const toast = useToast()
+const navigate = useNavigate()
 
-    if (!form.username || !form.email || !form.password)
-      return toast.error('Please fill all fields')
 
-    if (form.password.length < 6)
-      return toast.error('Password must be at least 6 characters')
+const handleSubmit = async(e)=>{
 
-    setLoading(true)
+e.preventDefault()
 
-    try {
+if(!form.username || !form.email || !form.password)
+return toast.error("Please fill all fields")
 
-      const res = await register(form)
+if(form.password.length < 6)
+return toast.error("Password must be at least 6 characters")
 
-      const { token, username } = res.data
+setLoading(true)
 
-      localStorage.setItem('token', token)
+try{
 
-      const meRes = await getMe()
+const res = await register(form)
 
-      loginUser(token, meRes.data)
+const { token, username } = res.data
 
-      toast.success(`Welcome to TradeHub, ${username}!`)
+localStorage.setItem("token",token)
 
-      navigate('/dashboard')
+const meRes = await getMe()
 
-    } catch (err) {
+loginUser(token,meRes.data)
 
-      toast.error(err.response?.data || 'Registration failed')
+toast.success(`Welcome to TradeHub, ${username}!`)
 
-    } finally {
+navigate("/dashboard")
 
-      setLoading(false)
+}catch(err){
 
-    }
-  }
+toast.error(err.response?.data || "Registration failed")
 
-  return (
+}finally{
+setLoading(false)
+}
 
-    <div className="auth-page">
+}
 
-      <div className="auth-bg">
-        {[...Array(20)].map((_, i) => (
-          <div
-            key={i}
-            className="auth-particle"
-            style={{
-              left: `${Math.random() * 100}%`,
-              top: `${Math.random() * 100}%`,
-              animationDelay: `${Math.random() * 3}s`,
-              animationDuration: `${3 + Math.random() * 4}s`
-            }}
-          />
-        ))}
-      </div>
 
-      <div className="auth-card fade-in">
+return(
 
-        <div className="auth-logo">
-          <Zap size={28} />
-          <span>TradeHub</span>
-        </div>
+<div className="auth-page">
 
-        <h1 className="auth-title">Create Account</h1>
 
-        <form onSubmit={handleSubmit} className="auth-form">
+{/* LEFT BRANDING */}
 
-          <div className="form-group">
-            <label>Username</label>
+<div className="auth-brand">
 
-            <input
-              type="text"
-              placeholder="Choose a username"
-              value={form.username}
-              onChange={(e) =>
-                setForm(p => ({ ...p, username: e.target.value }))
-              }
-            />
-          </div>
+<div className="brand-logo">
 
-          <div className="form-group">
-            <label>Email</label>
+<Zap size={28}/>
 
-            <input
-              type="email"
-              placeholder="your@email.com"
-              value={form.email}
-              onChange={(e) =>
-                setForm(p => ({ ...p, email: e.target.value }))
-              }
-            />
-          </div>
+TradeHub
 
-          <div className="form-group">
+</div>
 
-            <label>Password</label>
+<h1>Start trading today</h1>
 
-            <div className="input-wrap">
+<p>
 
-              <input
-                type={showPw ? 'text' : 'password'}
-                placeholder="Minimum 6 characters"
-                value={form.password}
-                onChange={(e) =>
-                  setForm(p => ({ ...p, password: e.target.value }))
-                }
-              />
+Join thousands of traders using TradeHub
+to track markets, manage portfolios
+and compete on the leaderboard.
 
-              <button
-                type="button"
-                className="eye-btn"
-                onClick={() => setShowPw(p => !p)}
-              >
-                {showPw ? <EyeOff size={15} /> : <Eye size={15} />}
-              </button>
+</p>
 
-            </div>
+</div>
 
-          </div>
 
-          <button
-            type="submit"
-            className="btn-primary"
-            disabled={loading}
-            style={{
-              background: "#2563eb",
-              color: "white"
-            }}
-          >
-            {loading ? 'Creating account...' : 'Create Account'}
-          </button>
 
-        </form>
+{/* REGISTER CARD */}
 
-        <p className="auth-link">
-          Already have an account? <Link to="/login">Sign in</Link>
-        </p>
+<div className="auth-container">
 
-      </div>
+<div className="auth-card">
 
-    </div>
+<h2>Create Account</h2>
 
-  )
+<p className="subtitle">
+
+Create your TradeHub account
+
+</p>
+
+
+<form onSubmit={handleSubmit} className="auth-form">
+
+
+<div className="form-field">
+
+<label>Username</label>
+
+<input
+type="text"
+placeholder="Choose username"
+value={form.username}
+onChange={(e)=>
+setForm(p=>({...p,username:e.target.value}))
+}
+/>
+
+</div>
+
+
+
+<div className="form-field">
+
+<label>Email</label>
+
+<input
+type="email"
+placeholder="your@email.com"
+value={form.email}
+onChange={(e)=>
+setForm(p=>({...p,email:e.target.value}))
+}
+/>
+
+</div>
+
+
+
+<div className="form-field">
+
+<label>Password</label>
+
+<div className="password-input">
+
+<input
+type={showPw?"text":"password"}
+placeholder="Minimum 6 characters"
+value={form.password}
+onChange={(e)=>
+setForm(p=>({...p,password:e.target.value}))
+}
+/>
+
+<button
+type="button"
+className="toggle-btn"
+onClick={()=>setShowPw(!showPw)}
+>
+
+{showPw ? <EyeOff size={16}/> : <Eye size={16}/>}
+
+</button>
+
+</div>
+
+</div>
+
+
+
+<button
+type="submit"
+className="login-btn"
+disabled={loading}
+>
+
+{loading ? "Creating account..." : "Create Account"}
+
+</button>
+
+</form>
+
+
+<div className="auth-footer">
+
+<p>
+
+Already have an account?
+
+<Link to="/login"> Sign in</Link>
+
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+)
+
 }

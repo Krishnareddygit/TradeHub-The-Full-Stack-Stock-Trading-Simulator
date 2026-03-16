@@ -1,181 +1,194 @@
-import { Outlet, NavLink, useNavigate } from 'react-router-dom'
-import { useAuth } from '../context/AuthContext'
-import { useEffect, useState } from 'react'
-import { getMarketStatus, getNotifications } from '../services/api'
+import { Outlet, NavLink, useNavigate } from "react-router-dom"
+import { useAuth } from "../context/AuthContext"
+import { useEffect, useState } from "react"
+import { getMarketStatus, getNotifications } from "../services/api"
 
 import {
-  LayoutDashboard,
-  TrendingUp,
-  Briefcase,
-  Star,
-  Trophy,
-  Bell,
-  Shield,
-  LogOut,
-  Zap
-} from 'lucide-react'
+LayoutDashboard,
+TrendingUp,
+Briefcase,
+Star,
+Trophy,
+Bell,
+Shield,
+LogOut,
+Zap
+} from "lucide-react"
 
-import './Layout.css'
+import "./Layout.css"
 
 const navItems = [
-  { path: '/dashboard', label: 'Overview', icon: LayoutDashboard },
-  { path: '/trade', label: 'Market', icon: TrendingUp },
-  { path: '/portfolio', label: 'Holdings', icon: Briefcase },
-  { path: '/watchlist', label: 'Favorites', icon: Star },
-  { path: '/leaderboard', label: 'Top Traders', icon: Trophy },
-  { path: '/notifications', label: 'Alerts', icon: Bell }
+{ path: "/dashboard", label: "Overview", icon: LayoutDashboard },
+{ path: "/trade", label: "Market", icon: TrendingUp },
+{ path: "/portfolio", label: "Holdings", icon: Briefcase },
+{ path: "/watchlist", label: "Favorites", icon: Star },
+{ path: "/leaderboard", label: "Top Traders", icon: Trophy },
+{ path: "/notifications", label: "Alerts", icon: Bell }
 ]
 
 export default function Layout() {
 
-  const { user, logoutUser } = useAuth()
-  const navigate = useNavigate()
+const { user, logoutUser } = useAuth()
+const navigate = useNavigate()
 
-  const [marketStatus, setMarketStatus] = useState('CLOSED')
-  const [unreadCount, setUnreadCount] = useState(0)
+const [marketStatus,setMarketStatus] = useState("CLOSED")
+const [unreadCount,setUnreadCount] = useState(0)
 
-  useEffect(() => {
+useEffect(()=>{
 
-    getMarketStatus()
-      .then(r => setMarketStatus(r.data))
-      .catch(() => {})
+getMarketStatus().then(r=>setMarketStatus(r.data)).catch(()=>{})
+getNotifications().then(r=>setUnreadCount(r.data.filter(n=>!n.read).length)).catch(()=>{})
 
-    getNotifications()
-      .then(r => {
-        setUnreadCount(r.data.filter(n => !n.read).length)
-      })
-      .catch(() => {})
+const interval=setInterval(()=>{
 
-    const interval = setInterval(() => {
+getMarketStatus().then(r=>setMarketStatus(r.data)).catch(()=>{})
+getNotifications().then(r=>setUnreadCount(r.data.filter(n=>!n.read).length)).catch(()=>{})
 
-      getMarketStatus()
-        .then(r => setMarketStatus(r.data))
-        .catch(() => {})
+},10000)
 
-      getNotifications()
-        .then(r => setUnreadCount(r.data.filter(n => !n.read).length))
-        .catch(() => {})
+return()=>clearInterval(interval)
 
-    }, 10000)
+},[])
 
-    return () => clearInterval(interval)
 
-  }, [])
+const handleLogout=()=>{
+logoutUser()
+navigate("/login")
+}
 
-  const handleLogout = () => {
-    logoutUser()
-    navigate('/login')
-  }
+const visibleNavItems =
+user?.role==="ADMIN"
+? navItems.filter(item =>
+item.label==="Favorites" || item.label==="Top Traders")
+: navItems
 
-  return (
 
-    <div className="layout">
+return(
 
-      <aside className="sidebar">
+<div className="layout">
 
-        <div className="sidebar-logo">
-          <Zap size={20} className="logo-icon" />
-          <span className="logo-text">TradeHub</span>
-        </div>
 
-        <div className="market-status-pill">
-          <span
-            className={`status-dot ${
-              marketStatus === 'OPEN' ? 'open' : 'closed'
-            }`}
-          />
-          <span className="status-label">
-            Market {marketStatus}
-          </span>
-        </div>
+{/* SIDEBAR */}
 
-        <nav className="sidebar-nav">
+<aside className="sidebar">
 
-          {navItems.map(({ path, label, icon: Icon }) => (
 
-            <NavLink
-              key={path}
-              to={path}
-              className={({ isActive }) =>
-                `nav-item ${isActive ? 'active' : ''}`
-              }
-            >
+<div className="sidebar-logo">
 
-              <Icon size={18} />
+<div className="logo-circle">
+<Zap size={18}/>
+</div>
 
-              <span>{label}</span>
+<span className="logo-text">
+TradeHub
+</span>
 
-              {label === 'Alerts' && unreadCount > 0 && (
-                <span className="badge">
-                  {unreadCount}
-                </span>
-              )}
+</div>
 
-            </NavLink>
 
-          ))}
 
-          {user?.role === 'ADMIN' && (
+<div className={`market-pill ${marketStatus==="OPEN"?"open":"closed"}`}>
 
-            <NavLink
-              to="/admin"
-              className={({ isActive }) =>
-                `nav-item ${isActive ? 'active' : ''}`
-              }
-            >
+<span className={`pulse ${marketStatus==="OPEN"?"green":"red"}`} />
 
-              <Shield size={18} />
+Market {marketStatus}
 
-              <span>Control Panel</span>
+</div>
 
-            </NavLink>
 
-          )}
 
-        </nav>
+<nav className="sidebar-nav">
 
-        <div className="sidebar-footer">
+{visibleNavItems.map(({path,label,icon:Icon})=>(
 
-          <div className="user-info">
+<NavLink
+key={path}
+to={path}
+className={({isActive})=>`nav-item ${isActive?"active":""}`}
+>
 
-            <div className="user-avatar">
-              {user?.username?.[0]?.toUpperCase()}
-            </div>
+<Icon size={18}/>
 
-            <div>
+<span>{label}</span>
 
-              <div className="user-name">
-                {user?.username}
-              </div>
+{label==="Alerts" && unreadCount>0 && (
+<span className="badge">{unreadCount}</span>
+)}
 
-              <div className="user-balance mono">
-                ₹
-                {Number(user?.balance || 0).toLocaleString(
-                  'en-IN',
-                  { minimumFractionDigits: 2 }
-                )}
-              </div>
+</NavLink>
 
-            </div>
+))}
 
-          </div>
 
-          <button
-            className="logout-btn"
-            onClick={handleLogout}
-            title="Logout"
-          >
-            <LogOut size={16} />
-          </button>
+{user?.role==="ADMIN" && (
 
-        </div>
+<NavLink
+to="/admin"
+className={({isActive})=>`nav-item ${isActive?"active":""}`}
+>
 
-      </aside>
+<Shield size={18}/>
+<span>Control Panel</span>
 
-      <main className="main-content">
-        <Outlet />
-      </main>
+</NavLink>
 
-    </div>
-  )
+)}
+
+</nav>
+
+
+
+<div className="sidebar-footer">
+
+<div className="user-card">
+
+<div className="avatar">
+{user?.username?.[0]?.toUpperCase()}
+</div>
+
+<div>
+
+<div className="username">
+{user?.username}
+</div>
+
+<div className="balance">
+₹{Number(user?.balance||0).toLocaleString("en-IN",{minimumFractionDigits:2})}
+</div>
+
+</div>
+
+</div>
+
+
+<button
+className="logout-btn"
+onClick={handleLogout}
+>
+
+<LogOut size={16}/>
+
+Logout
+
+</button>
+
+</div>
+
+</aside>
+
+
+
+{/* MAIN */}
+
+<main className="main-content">
+
+<Outlet/>
+
+</main>
+
+
+</div>
+
+)
+
 }

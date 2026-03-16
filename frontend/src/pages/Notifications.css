@@ -1,0 +1,136 @@
+.notifications-page{
+    padding:28px;
+    background:#020617;
+    min-height:100vh;
+    color:#e2e8f0;
+    font-family:Inter;
+    }
+    
+    /* HEADER */
+    
+    .notifications-header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:30px;
+    }
+    
+    .notifications-header h1{
+    display:flex;
+    align-items:center;
+    gap:8px;
+    font-size:26px;
+    font-weight:700;
+    }
+    
+    .unread-count{
+    background:#ef4444;
+    padding:3px 8px;
+    border-radius:6px;
+    font-size:11px;
+    margin-top:6px;
+    display:inline-block;
+    }
+    
+    /* BUTTON */
+    
+    .mark-read-btn{
+    display:flex;
+    align-items:center;
+    gap:6px;
+    background:#1e293b;
+    border:none;
+    padding:8px 14px;
+    border-radius:8px;
+    cursor:pointer;
+    color:white;
+    font-size:13px;
+    }
+    
+    .mark-read-btn:hover{
+    background:#3b82f6;
+    }
+    
+    
+    /* FEED */
+    
+    .notifications-feed{
+    display:flex;
+    flex-direction:column;
+    gap:12px;
+    }
+    
+    /* CARD */
+    
+    .notification-card{
+    display:flex;
+    align-items:flex-start;
+    gap:12px;
+    padding:14px;
+    background:#0f172a;
+    border-radius:10px;
+    border:1px solid rgba(255,255,255,0.05);
+    }
+    
+    .notification-card.unread{
+    border-color:#3b82f6;
+    background:#1e293b;
+    }
+    
+    
+    /* ICON */
+    
+    .icon{
+    width:36px;
+    height:36px;
+    border-radius:50%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    }
+    
+    .icon.buy{
+    background:#052e16;
+    color:#22c55e;
+    }
+    
+    .icon.sell{
+    background:#450a0a;
+    color:#ef4444;
+    }
+    
+    
+    /* CONTENT */
+    
+    .content{
+    flex:1;
+    }
+    
+    .message{
+    font-size:14px;
+    font-weight:500;
+    }
+    
+    .time{
+    font-size:11px;
+    color:#94a3b8;
+    margin-top:4px;
+    }
+    
+    
+    /* EMPTY */
+    
+    .empty{
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    padding:80px;
+    text-align:center;
+    color:#94a3b8;
+    }
+    
+    .empty span{
+    font-size:12px;
+    margin-top:4px;
+    }

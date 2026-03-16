@@ -1,97 +1,129 @@
-.dashboard-header{
+.page{
+  padding:28px;
+  background:#020617;
+  min-height:100vh;
+  color:#e2e8f0;
+  font-family:Inter;
+  }
+  
+  
+  /* ticker */
+  
+  .ticker{
   display:flex;
-  justify-content:space-between;
-  align-items:center;
+  gap:40px;
+  overflow:hidden;
+  border-bottom:1px solid rgba(255,255,255,0.08);
+  padding-bottom:10px;
   margin-bottom:24px;
   }
   
-  .page-title{
-  font-size:26px;
-  font-weight:700;
-  }
-  
-  .small-text{
+  .ticker-item{
+  display:flex;
+  gap:6px;
   font-size:13px;
   }
   
-  .grid-4{
-  display:grid;
-  grid-template-columns:repeat(4,1fr);
-  gap:18px;
-  margin-bottom:24px;
+  .ticker-symbol{
+  font-weight:700;
+  color:#60a5fa;
   }
   
-  .grid-2{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:20px;
+  .ticker-price{
+  color:#94a3b8;
   }
   
-  /* STAT CARDS */
   
-  .stat-card{
-  padding:18px;
-  border-radius:14px;
-  background:var(--card-bg);
-  box-shadow:0 2px 8px rgba(0,0,0,0.05);
-  }
+  /* header */
   
-  .stat-top{
+  .dashboard-header{
   display:flex;
   justify-content:space-between;
   align-items:center;
+  margin-bottom:26px;
+  }
+  
+  .page-title{
+  font-size:28px;
+  font-weight:700;
+  }
+  
+  .subtitle{
+  font-size:13px;
+  color:#94a3b8;
+  }
+  
+  
+  /* stats */
+  
+  .stats-grid{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:18px;
+  margin-bottom:26px;
+  }
+  
+  .stat-card{
+  background:#0f172a;
+  border-radius:14px;
+  padding:20px;
+  }
+  
+  .stat-header{
+  display:flex;
+  justify-content:space-between;
   margin-bottom:10px;
   }
   
-  .stat-icon{
-  width:32px;
-  height:32px;
-  border-radius:8px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
+  .stat-title{
+  font-size:13px;
+  color:#94a3b8;
   }
   
   .stat-value{
-  font-size:22px;
+  font-size:24px;
   font-weight:700;
   }
   
   .stat-sub{
   font-size:12px;
-  margin-top:4px;
-  color:var(--text-secondary);
+  color:#94a3b8;
   }
   
-  /* CARD */
+  
+  /* cards */
   
   .card{
-  background:var(--card-bg);
+  background:#0f172a;
   border-radius:14px;
-  padding:16px;
-  box-shadow:0 2px 10px rgba(0,0,0,0.05);
+  padding:18px;
+  margin-bottom:24px;
   }
   
   .card-header{
   display:flex;
   justify-content:space-between;
   align-items:center;
-  margin-bottom:12px;
+  margin-bottom:14px;
   }
-  
-  /* MARKET WATCH TITLE BLUE */
   
   .card-title{
-  font-weight:600;
   font-size:14px;
-  color:#2563eb;
+  font-weight:600;
+  color:#60a5fa;
   }
   
-  /* TABLE */
   
-  .table-wrap{
-  overflow-x:auto;
+  /* grid */
+  
+  .main-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:22px;
   }
+  
+  
+  /* tables */
   
   table{
   width:100%;
@@ -99,125 +131,166 @@
   }
   
   th{
-  font-size:12px;
   text-align:left;
-  padding:10px 6px;
-  color:var(--text-secondary);
-  border-bottom:1px solid #eee;
+  font-size:12px;
+  padding:10px;
+  color:#94a3b8;
+  border-bottom:1px solid rgba(255,255,255,0.06);
   }
   
   td{
-  padding:10px 6px;
+  padding:10px;
   font-size:13px;
   }
   
   .symbol{
   font-weight:700;
-  color:var(--accent);
+  color:#60a5fa;
   }
   
   .company{
   font-size:12px;
-  color:var(--text-secondary);
+  color:#94a3b8;
   }
   
-  /* REMOVE ROW HOVER */
-  
-  .clickable-row{
+  .clickable{
   cursor:pointer;
   }
   
-  /* TAGS */
+  
+  /* tags */
   
   .tag{
   padding:3px 8px;
   border-radius:6px;
   font-size:11px;
-  font-weight:600;
   }
   
-  .tag-green{
-  background:#e6f9ee;
-  color:#0f9d58;
+  .green{
+  background:#064e3b;
+  color:#22c55e;
   }
   
-  .tag-red{
-  background:#fdeaea;
-  color:#e53935;
+  .red{
+  background:#450a0a;
+  color:#ef4444;
   }
   
-  /* EMPTY STATE */
   
-  .empty-state{
+  /* buttons */
+  
+  .btn{
   display:flex;
-  flex-direction:column;
-  align-items:center;
-  justify-content:center;
-  padding:30px;
-  text-align:center;
-  }
-  
-  /* START TRADING BUTTON BLUE */
-  
-  .btn-primary{
-  background:#2563eb;
-  color:white;
+  gap:6px;
+  background:#1e293b;
   border:none;
-  padding:8px 16px;
+  padding:6px 10px;
   border-radius:6px;
+  color:white;
   cursor:pointer;
   }
   
-  /* MARKET BADGE */
+  .btn-primary{
+  background:#3b82f6;
+  padding:8px 16px;
+  border-radius:6px;
+  border:none;
+  color:white;
+  cursor:pointer;
+  }
+  
+  
+  /* pnl */
+  
+  .positive{
+  color:#22c55e;
+  }
+  
+  .negative{
+  color:#ef4444;
+  }
+  
+  
+  /* empty */
+  
+  .empty{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:10px;
+  padding:30px;
+  }
+  
+  
+  /* gainers losers */
+  
+  .gainers-losers{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:20px;
+  }
+  
+  .row{
+  display:flex;
+  justify-content:space-between;
+  padding:8px 0;
+  border-bottom:1px solid rgba(255,255,255,0.06);
+  }
+  
+  .row:last-child{
+  border-bottom:none;
+  }
+  
+  
+  /* market badge */
   
   .market-badge{
-  display:flex;
-  align-items:center;
-  gap:6px;
   padding:6px 12px;
   border-radius:8px;
   font-size:12px;
-  font-weight:600;
+  display:flex;
+  align-items:center;
+  gap:6px;
   }
   
   .market-badge.open{
-  background:#e6f9ee;
-  color:#0f9d58;
+  background:#052e16;
+  color:#22c55e;
   }
   
   .market-badge.closed{
-  background:#fdeaea;
-  color:#e53935;
+  background:#450a0a;
+  color:#ef4444;
   }
   
-  .status-dot{
+  .dot{
   width:6px;
   height:6px;
   border-radius:50%;
   }
   
-  .status-dot.open{
-  background:#0f9d58;
+  .dot.open{
+  background:#22c55e;
   }
   
-  .status-dot.closed{
-  background:#e53935;
+  .dot.closed{
+  background:#ef4444;
   }
   
-  .small-btn{
-  padding:6px 12px;
-  font-size:12px;
-  display:flex;
-  align-items:center;
-  gap:4px;
+  
+  /* spinner */
+  
+  .spinner{
+  width:36px;
+  height:36px;
+  border:4px solid rgba(255,255,255,0.1);
+  border-top:4px solid #3b82f6;
+  border-radius:50%;
+  animation:spin 1s linear infinite;
+  margin:auto;
+  margin-top:120px;
   }
   
-  /* PNL */
-  
-  .positive{
-  color:var(--green);
-  }
-  
-  .negative{
-  color:var(--red);
+  @keyframes spin{
+  to{transform:rotate(360deg)}
   }

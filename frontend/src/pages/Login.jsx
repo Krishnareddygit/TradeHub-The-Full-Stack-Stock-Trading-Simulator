@@ -1,115 +1,178 @@
-import { useState } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
-import { useAuth } from '../context/AuthContext'
-import { useToast } from '../context/ToastContext'
-import { login, getMe } from '../services/api'
-import { Zap, Eye, EyeOff } from 'lucide-react'
-import './Auth.css'
+import { useState } from "react"
+import { Link, useNavigate } from "react-router-dom"
+import { useAuth } from "../context/AuthContext"
+import { useToast } from "../context/ToastContext"
+import { login, getMe } from "../services/api"
+import { Zap, Eye, EyeOff } from "lucide-react"
 
-export default function Login() {
-  const [form, setForm] = useState({ username: '', password: '' })
-  const [loading, setLoading] = useState(false)
-  const [showPw, setShowPw] = useState(false)
+import "./Auth.css"
 
-  const { loginUser } = useAuth()
-  const toast = useToast()
-  const navigate = useNavigate()
+export default function Login(){
 
-  const handleSubmit = async (e) => {
-    e.preventDefault()
-    if (!form.username || !form.password) return toast.error('Please fill all fields')
-    setLoading(true)
+const [form,setForm] = useState({username:"",password:""})
+const [loading,setLoading] = useState(false)
+const [showPw,setShowPw] = useState(false)
 
-    try {
-      const res = await login(form)
-      const { token, username } = res.data
+const { loginUser } = useAuth()
+const toast = useToast()
+const navigate = useNavigate()
 
-      localStorage.setItem('token', token)
+const handleSubmit = async(e)=>{
 
-      const meRes = await getMe()
-      loginUser(token, meRes.data)
+e.preventDefault()
 
-      toast.success(`Welcome back, ${username}!`)
-      navigate('/dashboard')
-    } catch (err) {
-      toast.error(err.response?.data?.message || 'Invalid credentials')
-    } finally {
-      setLoading(false)
-    }
-  }
+if(!form.username || !form.password){
+return toast.error("Please fill all fields")
+}
 
-  return (
-    <div className="auth-container">
+setLoading(true)
 
-      <div className="auth-card">
+try{
 
-        <div className="auth-header">
-          <div className="logo">
-            <Zap size={28} />
-            <span>TradeHub</span>
-          </div>
-          <h2>Sign In</h2>
-          <p>Access your trading dashboard</p>
-        </div>
+const res = await login(form)
 
-        <form onSubmit={handleSubmit} className="auth-form">
+const { token, username } = res.data
 
-          <div className="form-field">
-            <label>Username</label>
-            <input
-              type="text"
-              placeholder="Enter username"
-              value={form.username}
-              onChange={(e) =>
-                setForm((p) => ({ ...p, username: e.target.value }))
-              }
-            />
-          </div>
+localStorage.setItem("token",token)
 
-          <div className="form-field">
-            <label>Password</label>
+const meRes = await getMe()
 
-            <div className="password-input">
+loginUser(token,meRes.data)
 
-              <input
-                type={showPw ? 'text' : 'password'}
-                placeholder="Enter password"
-                value={form.password}
-                onChange={(e) =>
-                  setForm((p) => ({ ...p, password: e.target.value }))
-                }
-              />
+toast.success(`Welcome back, ${username}!`)
 
-              <button
-                type="button"
-                className="toggle-btn"
-                onClick={() => setShowPw(!showPw)}
-              >
-                {showPw ? <EyeOff size={16} /> : <Eye size={16} />}
-              </button>
+navigate("/dashboard")
 
-            </div>
-          </div>
+}catch(err){
 
-          <button
-            type="submit"
-            className="login-btn"
-            disabled={loading}
-          >
-            {loading ? 'Signing in...' : 'Sign In'}
-          </button>
+toast.error(err.response?.data?.message || "Invalid credentials")
 
-        </form>
+}finally{
+setLoading(false)
+}
 
-        <div className="auth-footer">
-          <p>
-            Don't have an account?
-            <Link to="/register"> Create one</Link>
-          </p>
-        </div>
+}
 
-      </div>
 
-    </div>
-  )
+return(
+
+<div className="auth-page">
+
+
+{/* LEFT BRANDING */}
+
+<div className="auth-brand">
+
+<div className="brand-logo">
+<Zap size={28}/>
+TradeHub
+</div>
+
+<h1>Trade smarter</h1>
+
+<p>
+Advanced trading platform for real-time markets,
+portfolio analytics and competitive trading.
+</p>
+
+</div>
+
+
+
+{/* LOGIN CARD */}
+
+<div className="auth-container">
+
+<div className="auth-card">
+
+<h2>Sign In</h2>
+
+<p className="subtitle">
+Access your trading dashboard
+</p>
+
+
+<form onSubmit={handleSubmit} className="auth-form">
+
+
+<div className="form-field">
+
+<label>Username</label>
+
+<input
+type="text"
+placeholder="Enter username"
+value={form.username}
+onChange={(e)=>
+setForm(p=>({...p,username:e.target.value}))
+}
+/>
+
+</div>
+
+
+
+<div className="form-field">
+
+<label>Password</label>
+
+<div className="password-input">
+
+<input
+type={showPw?"text":"password"}
+placeholder="Enter password"
+value={form.password}
+onChange={(e)=>
+setForm(p=>({...p,password:e.target.value}))
+}
+/>
+
+<button
+type="button"
+className="toggle-btn"
+onClick={()=>setShowPw(!showPw)}
+>
+
+{showPw ? <EyeOff size={16}/> : <Eye size={16}/>}
+
+</button>
+
+</div>
+
+</div>
+
+
+<button
+type="submit"
+className="login-btn"
+disabled={loading}
+>
+
+{loading ? "Signing in..." : "Sign In"}
+
+</button>
+
+</form>
+
+
+<div className="auth-footer">
+
+<p>
+
+Don't have an account?
+
+<Link to="/register"> Create one</Link>
+
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+)
+
 }
