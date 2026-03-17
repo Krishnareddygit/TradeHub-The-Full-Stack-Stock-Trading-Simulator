@@ -2,7 +2,9 @@ package com.trading.platform.user.repository;
 
 import com.trading.platform.user.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -17,4 +19,7 @@ public interface UserRepository extends JpaRepository<User, Long> {
     // Excludes internal system accounts from user-facing queries
     @Query("SELECT u FROM User u WHERE u.username NOT IN ('system', 'admin') AND u.role = 'USER'")
     List<User> findAllRealUsers();
+
+
+
 }

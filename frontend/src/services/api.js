@@ -75,5 +75,18 @@ export const depositMoney = (amount) =>
 
 export const withdrawMoney = (amount) =>
   api.post("api/wallet/withdraw", { amount })
+  
+
+// Admin - Users
+export const getUsers = () => api.get('/admin/users')
+
+export const adminDeleteUser = (id) =>
+  api.delete(`/admin/users/${id}`)
+
+export const adminPauseUser = (id) =>
+  api.post(`/admin/users/${id}/pause`)
+
+export const adminResumeUser = (id) =>
+  api.post(`/admin/users/${id}/resume`)
 
 export default api

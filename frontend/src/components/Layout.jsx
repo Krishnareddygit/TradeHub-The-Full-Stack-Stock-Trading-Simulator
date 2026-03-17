@@ -80,7 +80,7 @@ return(
 </div>
 
 <span className="logo-text">
-TradeHub
+TradEx
 </span>
 
 </div>

@@ -53,7 +53,7 @@ navigate("/dashboard")
 
 }catch(err){
 
-toast.error(err.response?.data || "Registration failed")
+toast.error(err.response?.data || "User already exists. Please choose a different username.")
 
 }finally{
 setLoading(false)
@@ -75,7 +75,7 @@ return(
 
 <Zap size={28}/>
 
-TradeHub
+TradEx
 
 </div>
 

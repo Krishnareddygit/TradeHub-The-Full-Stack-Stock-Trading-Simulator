@@ -39,6 +39,10 @@ public class OrderService {
         User user = userRepository.findByUsername(username)
                 .orElseThrow(() -> new RuntimeException("User not found"));
 
+        if (!user.isTradingEnabled()) {
+            throw new RuntimeException("Trading is paused for this user");
+        }
+
         Stock stock = stockRepository.findBySymbol(request.getSymbol())
                 .orElseThrow(() -> new RuntimeException("Stock not found: " + request.getSymbol()));
 

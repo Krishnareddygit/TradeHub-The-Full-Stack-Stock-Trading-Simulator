@@ -41,11 +41,15 @@ public class User {
     @Column(nullable = false)
     private LocalDateTime createdAt;
 
+    @Column(nullable = false)
+    private boolean tradingEnabled;
+
     @PrePersist
     public void prePersist() {
         this.createdAt = LocalDateTime.now();
         if (balance == null) balance = BigDecimal.valueOf(0);
         if (marginMultiplier == null) marginMultiplier = BigDecimal.valueOf(5);
         if (usedMargin == null) usedMargin = BigDecimal.ZERO;
+        this.tradingEnabled = true;
     }
 }

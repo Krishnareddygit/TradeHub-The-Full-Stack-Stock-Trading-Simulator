@@ -69,7 +69,7 @@ return(
 
 <div className="brand-logo">
 <Zap size={28}/>
-TradeHub
+TradEx
 </div>
 
 <h1>Trade smarter</h1>
